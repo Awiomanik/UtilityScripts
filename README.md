@@ -20,9 +20,7 @@ Command-line tool. Compare two files and generate a detailed report of the diffe
 
 ## Usage
 
-Each script can be run independently. For Python scripts, you'll need to have Python installed on your system.
-
-For detailed usage instructions, refer to the individual script files.
+Each script can be run independently. For Python scripts, you'll need to have Python installed on your system. For detailed usage instructions, refer to the list below and individual script files.
 
 - `file_diff.py`:<br>
   >Run the script from the command line by passing two file paths:<br> `>python file_diff.py path/to/file1 path/to/file2`.<br>
