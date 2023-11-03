@@ -11,7 +11,7 @@ Please note that these scripts are shared for educational purposes. They were cr
 ### Python Scripts
 
 - `file_diff.py`:<br>
- Compare two files and generate a detailed report of the differences between them. It's a command-line tool.<br>
+Command-line tool. Compare two files and generate a detailed report of the differences between them.<br>
 > **Functionality:**
 > - **Argument Verification**: The script starts by checking if the correct number of arguments is passed. It requires exactly two file paths. It verifies the existence of the provided file paths. Compares the MIME types of both files to ensure they are the same before proceeding with the comparison.
 > - **Difference Report Creation**: It uses the `difflib.Differ` class to compute the differences and creates a human-readable report.
