@@ -4,7 +4,7 @@
 
 This repository is a compilation of various scripts I've created as part of my programming learning journey. These scripts are not interconnected but instead serve individual purposes that range from file comparison, disk space analysis, to secure password generation.
 
-Please note that these scripts are shared for educational purposes. They were created to help me with tasks I encounter along the way and even though they worked as I intended they are merely examples of my progress in coding and are provided "as is" without warranties. They may not always function as intended, and their safety is not guaranteed. Users are advised to review the code and use it at their own discretion.
+Please note that these scripts are shared for educational purposes. They were created to help me with tasks I encounter along the way and even though they worked as I intended they are merely examples of my progress in coding and are provided "as is" without warranties. They may not always function as intended on your machine, and their safety is not guaranteed. Users are advised to review the code and use it at their own discretion.
 
 ## Scripts
 
