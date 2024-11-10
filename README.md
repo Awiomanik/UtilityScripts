@@ -66,7 +66,7 @@ Each script can be run independently. For Python scripts, you'll need to have Py
   >The files to be compared must be text-based and have the same MIME type.
 
 - `loading_bar.py`:<br>
-  >The script provides a customizable loading bar to visualize progress in console applications. To use, import `LoadingBar`, initialize with a total count, and update the bar in each iteration:<br>
+  >The script provides a customizable loading bar to visualize progress in console applications. To use, import `LoadingBar`, initialize with a total count, and update the bar in each iteration:
   ```python
   from loading_bar import LoadingBar
   bar = LoadingBar(total=200)
@@ -77,7 +77,7 @@ Each script can be run independently. For Python scripts, you'll need to have Py
   The loading bar displays progress, average time, and estimated time to completion.
 
 - `folder_size_analyzer.py`:<br>
-  >The script calculates the sizes of all folders in a directory and lists them by size. You can specify the directory and the unit for display with the `-d` and `-u` flags:<br>
+  >The script calculates the sizes of all folders in a directory and lists them by size. You can specify the directory and the unit for display with the `-d` and `-u` flags:
   ```bash
   python folder_size_analyzer.py -d /path/to/directory -u MB
   ```
