@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "folder-size-analyzer"
+version = "0.1.0"
+description = "A script that calculates and displays folder sizes."
+authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+os = "*"
+sys = "*"
+subprocess = "*"
+collections = "*"
+
+[tool.poetry.packages]
+include = ["size_of_folders"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "file-diff"
+version = "0.1.0"
+description = "A command-line tool for comparing two files and reporting their differences."
+authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8" 
+mimetypes = "*"
+difflib = "*"
+
+[tool.poetry.packages]
+include = ["file_diff"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
