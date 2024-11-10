@@ -74,14 +74,14 @@ Each script can be run independently. For Python scripts, you'll need to have Py
       bar.update(i + 1)
   bar.close()
   ```
-  The loading bar displays progress, average time, and estimated time to completion.
+  >The loading bar displays progress, average time, and estimated time to completion.
 
 - `folder_size_analyzer.py`:<br>
   >The script calculates the sizes of all folders in a directory and lists them by size. You can specify the directory and the unit for display with the `-d` and `-u` flags:
   ```bash
   python folder_size_analyzer.py -d /path/to/directory -u MB
   ```
-  Supported units: `bit`, `B`, `KB`, `MB`, `GB`, `TB`, `KiB`, `MiB`, `GiB`, `TiB`. By default, it uses the current directory and MiB.
+  >Supported units: `bit`, `B`, `KB`, `MB`, `GB`, `TB`, `KiB`, `MiB`, `GiB`, `TiB`. By default, it uses the current directory and MiB.
 
 ## Contributing
 
