@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "loading-bar"
+name = "loading_bar"
 version = "0.1.0"
 description = "A script providing a customizable loading bar for console applications."
 authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
