@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "utility"
+version = "0.2.0"
+description = "A collection of utility scripts for various tasks."
+authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
