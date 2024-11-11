@@ -1,4 +1,36 @@
+"""
+A script to visualize a directory structure as a tree.
+
+This script generates a tree representation of a directory, allowing for customization
+via command-line arguments. It can show directory contents, exclude files or directories
+based on a regular expression, and save the output to a file or display it in the console.
+The output can be adjusted with options for indentation and the number of levels to go up
+from the specified directory.
+
+Key Features:
+- Visualizes a directory structure as a tree with customizable indentation.
+- Supports exclusions based on regular expressions.
+- Option to exclude files and limit output to directories only.
+- Ability to output the tree to a file or display it in the console.
+
+Command-Line Arguments:
+- `-h, --help`: Show usage information.
+- `-p <path>, --path <path>`: Specify the root directory to visualize.
+- `-u <int>, --up <int>`: Move up the directory hierarchy by the specified number of levels.
+- `-f, --file`: Output the tree to a file.
+- `-vt <int>`: Set the vertical tabulation (indentation) in spaces.
+- `-ht <int>`: Set the horizontal tabulation (indentation) in spaces.
+- `-e <regex>`: Exclude files and directories matching the given regular expression.
+- `-d`: Exclude files, showing only directories.
+
+Functions:
+- `process_arguments(arg: list[str]) -> dict`: Processes the command-line arguments and returns a dictionary with the selected options.
+- `get_directory_structure(path: str, includeFiles: bool, exclude_pattern: re.Pattern) -> tuple[dict, int]`: Recursively retrieves the directory structure.
+- `tree_string(tree: dict, tab: int = 4, horizontal_tab: int = 0) -> str`: Converts the directory structure to a visual tree string.
+
+"""
 import os
+import re
 import sys
 
 # Symbols used to visualize the tree
@@ -7,65 +39,125 @@ vertical: str   = "\u007C"  # |
 corner: str     = "\u2514"  # └
 verBranch: str  = "\u251C"  # ├
 
-def process_arguments(arg: list[str]) -> str:
+def process_arguments(arg: list[str]) -> dict:
     """
-    Processes command-line arguments to determine the target directory path.
-    
-    - If no arguments are provided, returns the current working directory.
-    - If a single path argument is provided, validates the path and returns it.
-    - If a flag `-u` or `--up` is provided with an integer, moves up the specified number
-      of levels in the directory hierarchy starting from the current working directory.
-    
+    Processes command-line arguments to determine various options for directory processing.
+
     Parameters:
-    - arg (list[str]): Command-line arguments passed to the script. Can accept (beyond scripts name):
-        - A single path argument
-        - A flag `-u` or `--up` followed by an integer (e.g., `-u 2`).
-    
+    - arg (list[str]): Command-line arguments passed to the script, can include:
+        - `-h` or `--help`: Displays usage information and exits.
+        - `-p` or `--path`: Sepifies path to the directory that will be visualized.
+        - `-u <int>` or `--up <int>`: Moves up the specified number of levels in the directory hierarchy starting from the current or sepcified directory.
+        - `-f` or `--file`: Outputs the result to a file.
+        - `-vt <int>`: Sets the number of spaces to use as vertical tabs for indentation.
+        - `-ht <int>`: Sets the number of spaces to use as horizontal tabs for indentation.
+        - `-e <str>`: Specifies files and directories that match regular expression to be exclude from the directory listing.
+        - `-d`: Excludes files from a tree limiting it to directories.
+
     Returns:
-    - str: The resolved directory path based on the provided argument(s).
-    
+    - dict: A dictionary containing parsed options and values. ({"directory": str, "output2file": bool, "vertical_tab": int, "horizontal_tab": int, "excluded": str, "no_files": bool})
+
     Exits:
-    - Exits with an error message if the arguments are invalid or if there are too many arguments.
+    - Displays help and exits if `-h` is specified.
+    - Exits with an error message if the arguments are invalid.
     """
-    # Check for too many arguments
-    if len(arg) > 3:
-        sys.exit(
-            "Error:\tThis script accepts at most one path argument, or a flag '-u/--up' followed by a level count.\n"
-            "\tIf no path or flag is specified, the current directory will be used by default."
-        )
+    options = {
+        "directory": os.getcwd(),
+        "output2file": False,
+        "vertical_tab": 4,
+        "horizontal_tab": 0,
+        "excluded": None,
+        "no_files": False
+    }
+    levels_up: int = 0
 
-    # Default to current working directory if no argument is provided
-    if len(arg) == 1:
-        return os.getcwd()
+    # Display help and exit if `-h` or `--help` is provided
+    if "-h" in arg or "--help" in arg:
+        print("Usage: directory_structure.py [options]\n"
+              "Options:\n"
+              "  -h, --help               Show this help message and exit\n"
+              "  -p <str> or --path <str> Specify ddirectory to be visualized\n"
+              "  -u <int>, --up <int>     Create a tree for the directory up <int> levels in the directory hierarchy\n"
+              "  -f, --file               Output tree to a file\n"
+              "  -vt <int>                Set vertical tab size (number of spaces for indentation)\n"
+              "  -ht <int>                Set horizontal tab size (number of spaces for indentation)\n"
+              "  -e <str>                 Exclude files and directories that mach <str> regular expresion from the directory listing\n"
+              "  -d                       Excludes files from a tree limiting it to directories")
+        sys.exit()
 
-    # Handle the `-u` or `--up` flag for moving up directory levels
-    if arg[1] in ("-u", "--up"):
-        if len(arg) == 3 and arg[2].isdigit():
-            path = os.getcwd()
-            levels_up = int(arg[2])
-            for _ in range(levels_up):
-                path = os.path.dirname(path)
-            return path
+    # Parse arguments
+    i = 1
+    while i < len(arg):
+        if arg[i] in ("-p", "--path"):
+            # Handle `-p` or `--path` flag with string
+            if i + 1 < len(arg) and os.path.exists(arg[i + 1]):
+                options["directory"] = arg[i + 1]
+                i += 2
+            else:
+                sys.exit("Error: The '-p' or '--path' flag must be followed by a valid path.")
+
+        elif arg[i] in ("-u", "--up"):
+            # Handle `-u` or `--up` flag with an integer
+            if i + 1 < len(arg) and arg[i + 1].isdigit():
+                levels_up = int(arg[i + 1])
+                i += 2
+            else:
+                sys.exit("Error: The '-u' or '--up' flag must be followed by an integer.")
+
+        elif arg[i] == "-f":
+            # Handle `-f` flag for output to file
+            options["output2file"] = True
+            i += 1
+
+        elif arg[i] == "-vt":
+            # Handle `-vt` flag for vertical tabs
+            if i + 1 < len(arg) and arg[i + 1].isdigit():
+                options["vertical_tab"] = int(arg[i + 1])
+                i += 2
+            else:
+                sys.exit("Error: The '-vt' flag must be followed by an integer.")
+
+        elif arg[i] == "-ht":
+            # Handle `-ht` flag for horizontal tabs
+            if i + 1 < len(arg) and arg[i + 1].isdigit():
+                options["horizontal_tab"] = int(arg[i + 1])
+                i += 2
+            else:
+                sys.exit("Error: The '-ht' flag must be followed by an integer.")
+
+        elif arg[i] == "-e":
+            # Handle `-e` flag for exclusion regex
+            if i + 1 < len(arg):
+                try:
+                    options["excluded"] = re.compile(arg[i + 1])
+                    i += 2
+                except re.error as e:
+                    sys.exit(f"Error: Invalid regular expression provided for exclusion: {e}")
+            else:
+                sys.exit("Error: The '-e' flag must be followed by a regular expression with no spaces.")
+
+        elif arg[i] == "-d":
+            options["no_files"] = True
+            i += 1
+
         else:
-            sys.exit("Error:\tThe '-u' or '--up' flag must be followed by a single integer specifying levels to go up.")
-    
-    # Handle a single path argument
-    elif len(arg) == 2:
-        target = arg[1]
-        if os.path.exists(target):
-            return target
-        else:
-            sys.exit("Error:\tThe specified path does not exist.")
-    
-    # Invalid input scenario
-    sys.exit("Error:\tInvalid arguments. Use a path or the '-u/--up' flag with an integer.")
+            # Invalid or unsupported argument
+            sys.exit(f"Error: Invalid argument '{arg[i]}'")
 
-def get_directory_structure(path: str) -> tuple[dict, int]:
+    # Adjust directory
+    for _ in range(levels_up): 
+        options["directory"] = os.path.dirname(options["directory"])
+
+    return options
+
+def get_directory_structure(path: str, includeFiles: bool, exclude_pattern: re.Pattern) -> tuple[dict, int]:
     """
     Recursively generates a dictionary representing the directory structure.
     
     Parameters:
     - path (str): The root directory path to scan.
+    - includeFiles (bool): Whether to include files or just directories.
+    - exclude_pattern (re.Pattern): Regular expression that excludes matched files and directories if mached.
 
     Returns:
     - tuple containing:
@@ -80,17 +172,18 @@ def get_directory_structure(path: str) -> tuple[dict, int]:
 
         # Iterate over elements in directory
         for element in os.listdir(current_path):
-            element_path = os.path.join(current_path, element)
+            if not (exclude_pattern and re.match(exclude_pattern, element)):
+                element_path = os.path.join(current_path, element)
 
-            # Encountered directory, recurse deeper
-            if os.path.isdir(element_path):
-                dir_tree[element], temp_counter = build_tree(os.path.join(current_path, element))
-                element_counter += temp_counter
+                # Encountered directory, recurse deeper
+                if os.path.isdir(element_path):
+                    dir_tree[element], temp_counter = build_tree(os.path.join(current_path, element))
+                    element_counter += temp_counter
 
-            # Encountered file, mark with None
-            elif os.path.isfile(element_path):
-                dir_tree[element] = None
-                element_counter += 1
+                # Encountered file, mark with None
+                elif includeFiles and os.path.isfile(element_path):
+                    dir_tree[element] = None
+                    element_counter += 1
         
         return dir_tree, element_counter
     
@@ -157,18 +250,34 @@ def tree_string(tree: dict, tab: int = 4, horizontal_tab: int = 0) -> str:
     return head + '\n' + build_string(tree[head])
 
 if __name__ == "__main__":
-    path = process_arguments(sys.argv)
+    options = process_arguments(sys.argv)
 
-    print("Scanning directory tree...", end="\r")
-    tree, counter = get_directory_structure(path)
-    print(f"Directory scanned, {counter} elements found.")
+    print("Preparing directory tree for specified options:\n")
+    print("Directory:\t\t", options["directory"])
+    print("Output to:\t\t", "file" if options["output2file"] else "console")
+    print("Vertical tabulation:\t", options["vertical_tab"], "characters")
+    print("Horizontal tabulation:\t", options["horizontal_tab"], "characters")
+    print("Exclude names matching:\t", options["excluded"])
+    print("Exclude files:\t\t", options["no_files"])
+    
+    print("\nScanning directory tree...", end="\r")
+    tree, counter = get_directory_structure(options["directory"], 
+                                            not options["no_files"], 
+                                            options["excluded"])
+    print(f"Directory scanned, {counter} elements found.\n")
 
-    tree = tree_string(tree, 5, 0)
-    print(tree)
+    tree = tree_string(tree, options["vertical_tab"], options["horizontal_tab"])
 
-# without files
-# tabs
-# excluded directories
-# output to file
-# help
-# file docstring
+    if options["output2file"]:
+        fileName:str = os.path.basename(options["directory"]) + "_directory_tree.txt"
+        counter = 1
+        while os.path.exists(fileName):
+            fileName = f"""{os.path.basename(options["directory"])}_directory_tree({counter}).txt"""
+            counter += 1
+
+        with open(fileName, 'w', encoding="utf-8") as file:
+            file.write(tree)
+        
+        print("Directory tree saved to", fileName)
+    else:
+        print(tree)
