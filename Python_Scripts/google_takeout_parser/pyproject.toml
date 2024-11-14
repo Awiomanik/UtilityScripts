@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "google-takeout-parser"
+version = "0.1.0"
+description = "A command-line tool designed to organize and consolidate Google Takeout data, specifically for files like photos and videos. This script matches each media file with its corresponding metadata JSON file, which contains useful information such as timestamps, location data, and other attributes. The script then compiles this information into a single, organized output file, making it easy to retrieve and manage metadata alongside the actual media files."
+authors = ["Wojciech Kosnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+loading_bar = { path = "../loading_bar" }
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
