@@ -20,7 +20,6 @@ Please note that these scripts are shared for educational purposes. They were cr
 ```
 UtilityScripts/
 ├---- .git/
-|     └---- ...
 ├---- LICENSE
 ├---- pyproject.toml
 ├---- Python_Scripts/
@@ -28,6 +27,10 @@ UtilityScripts/
 |     |     └---- directory_structure.py
 |     ├---- file_diff/
 |     |     ├---- file_diff.py
+|     |     ├---- pyproject.toml
+|     |     └---- __init__.py
+|     ├---- google_takeout_parser/
+|     |     ├---- google_takeout_parser.py
 |     |     ├---- pyproject.toml
 |     |     └---- __init__.py
 |     ├---- loading_bar/
