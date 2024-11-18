@@ -8,7 +8,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-loading_bar = { path = "../loading_bar" }
 
 
 [build-system]

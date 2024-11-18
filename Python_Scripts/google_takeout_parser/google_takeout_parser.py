@@ -1,5 +1,5 @@
 import sys
-from loading_bar import LoadingBar
+from ..loading_bar.loading_bar import LoadingBar
 
 import time
 

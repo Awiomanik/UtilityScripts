@@ -1,1 +1,1 @@
-from .google_takeout_parser import parser()
+from .google_takeout_parser import parser

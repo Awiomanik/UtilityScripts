@@ -3,7 +3,10 @@ name = "utility"
 version = "0.2.0"
 description = "A collection of utility scripts for various tasks."
 authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+readme = "README.md"
 license = "Apache-2.0"
+packages = [{ include = "Python_Scripts" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+loading_bar = { path = "./Python_Scripts/loading_bar" }
