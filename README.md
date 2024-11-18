@@ -41,6 +41,7 @@ UtilityScripts/
 |           └---- __init__.py
 └---- README.md
 ```
+*Files and folders with 'TST' in their name will be treated as testing ones and thus will be ignored by git.*
 
 ### Python Scripts
 
