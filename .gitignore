@@ -24,8 +24,8 @@ venv/
 # Build Files
 **/build/
 **/dist/
-**/.egg-info/
-**/.eggs/
+**/*.egg-info/
+**/*.eggs/
 
 # Local Configuration Files
 *.env
