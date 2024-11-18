@@ -1,7 +1,0 @@
-loading_bar.py
-pyproject.toml
-setup.py
-loading_bar.egg-info/PKG-INFO
-loading_bar.egg-info/SOURCES.txt
-loading_bar.egg-info/dependency_links.txt
-loading_bar.egg-info/top_level.txt
