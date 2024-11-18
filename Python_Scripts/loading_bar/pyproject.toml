@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "loading_bar"
+version = "0.1.0"
+description = "A script providing a customizable loading bar for console applications."
+authors = ["Wojciech Kośnik-Kowalczuk <wojciech.kosnik.kowalczuk@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.packages]
+include = ["loading_bar"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

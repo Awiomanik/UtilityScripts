@@ -14,7 +14,7 @@ venv/
 .venv/
 
 # Poetry
-poetry.lock
+**/poerty.lock
 .mypy_cache/
 .cache/
 .pytest_cache/
@@ -24,7 +24,7 @@ poetry.lock
 # Build Files
 build/
 dist/
-*.egg-info/
+.egg-info/
 .eggs/
 
 # Local Configuration Files
