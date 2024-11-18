@@ -14,7 +14,7 @@ venv/
 .venv/
 
 # Poetry
-**/poerty.lock
+poerty.lock
 .mypy_cache/
 .cache/
 .pytest_cache/
