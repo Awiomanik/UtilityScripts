@@ -40,3 +40,8 @@ venv/
 
 # Testing
 *TST*
+
+
+# Cpp
+*.exe
+*.o
