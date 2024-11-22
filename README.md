@@ -8,44 +8,81 @@ Please note that these scripts are shared for educational purposes. They were cr
 
 ## Scripts:
 
-- Python Scripts
+- Python Scripts:
     - [file_diff](#file_diffpy) – Compare two files and generate a detailed difference report.
     - [loading_bar](#loading_barpy) – Provides a visual loading bar for progress tracking.
     - [folder_size_analyzer](#folder_size_analyzerpy) – Analyzes and displays folder sizes within a specified directory.
     - [directory_structure](#directory_structurepy) – Visualize a directory structure as a tree with command-line options.
+    </br>
+- C++ Scripts:
+    - [break_reminder](break_remindercpp) - Displays timed notifications for work and break intervals.
 </br>
 
 #### Repository Tree
 
 ```
 UtilityScripts/
+|
 ├---- .git/
 |     └---- ...
-├---- LICENSE
-├---- pyproject.toml
+|
+├---- cpp_Scripts/
+|     └---- break_reminder/
+|           └---- break_reminder.exe
+|
 ├---- Python_Scripts/
 |     ├---- directory_structure/
 |     |     └---- directory_structure.py
+|     |
 |     ├---- file_diff/
 |     |     ├---- file_diff.py
 |     |     ├---- pyproject.toml
 |     |     └---- __init__.py
+|     |
 |     ├---- google_takeout_parser/ (Still in development)
 |     |     ├---- google_takeout_parser.py
 |     |     ├---- pyproject.toml
 |     |     └---- __init__.py
+|     |
 |     ├---- loading_bar/
 |     |     ├---- loading_bar.py
 |     |     ├---- pyproject.toml
 |     |     ├---- setup.py
 |     |     └---- __init__.py
+|     |
 |     └---- size_of_folders/
 |           ├---- pyproject.toml
 |           ├---- size_of_folders.py
 |           └---- __init__.py
+|
+├---- pyproject.toml
+├---- LICENSE
 └---- README.md
 ```
 *Files and folders with 'TST' in their name will be treated as testing ones and thus will be ignored by git.*
+
+### C++ Scripts
+
+#### `break_reminder.cpp`:
+></br>Command-line utility to help maintain a healthy work-break schedule. Displays timed reminders for work and break intervals.
+>
+> **Functionality:**
+> - **Interval Setup**: Allows users to set custom durations for work and break intervals, with defaults of 45 minutes for work and 15 minutes for breaks. </br></br>
+> - **Reminders**: Notifies the user with a console message and a system pop-up at the end of each interval.</br></br>
+> - **Exit Option**: The program runs continuously in the background but can be terminated in a controled manner by pressing Enter.
+>
+> **Features**:
+> - Default values for work and break intervals.
+> - Customizable settings for each session.
+> - Clean exit mechanism via Enter key detection.
+> - Lightweight and works across Windows systems.
+>
+> **Example Usage**:
+>```console
+>break_reminder.exe
+>```
+> When run, the program prompts the user to set work and break intervals or accept defaults. It notifies the user at the end of each interval with a pop-up message.
+></br>
 
 ### Python Scripts
 
@@ -147,11 +184,13 @@ UtilityScripts/
 
 ## Usage
 
-Each script can be run independently. For Python scripts, you'll need to have Python installed on your system. For detailed usage instructions, refer to the list above and individual script files.
+Each script can be run independently. 
+For Python scripts, you'll need to have Python installed on your system. For detailed usage instructions, refer to the list above and individual script files. 
+For C++ scripts, you'll need to compile scripts to binary executable compatible with your system.
 
-#### **General Usage Guide**
+#### **General Usage Guide** (Python)
 
-#### 1. Instalation
+#### 1. Instalation 
 Most scripts are structured as a self-contained packages with their own `pyproject.toml` and `__init__.py` files. To install them individually or together, you can use Poetry, or simply link them directly if they are added as submodules in another project.
 
 **a) Installing Individual Scripts**
