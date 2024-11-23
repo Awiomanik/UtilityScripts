@@ -16,6 +16,10 @@ Please note that these scripts are shared for educational purposes. They were cr
     </br>
 - C++ Scripts:
     - [break_reminder](break_remindercpp) - Displays timed notifications for work and break intervals.
+    </br>
+- CMD Scripts:
+    - [delayed_shoutdown](#delayed_shoutdowncmd) - Schedule a system shutdown at a specific time with a live countdown.
+    - [system_info](#system_infocmd) - Display detailed system, hardware, and network information.
 </br>
 
 #### Repository Tree
@@ -25,6 +29,10 @@ UtilityScripts/
 |
 ├---- .git/
 |     └---- ...
+|
+├---- CMD_Scripts/
+|     ├---- delayed_shoutdown.cmd
+|     └---- system_info.cmd
 |
 ├---- cpp_Scripts/
 |     └---- break_reminder/
@@ -61,6 +69,57 @@ UtilityScripts/
 ```
 *Files and folders with 'TST' in their name will be treated as testing ones and thus will be ignored by git.*
 
+</br>
+
+### CMD Scripts
+
+#### `delayed_shutdown.cmd`:
+></br>
+> A script to schedule a system shutdown at a user-specified time, with a live countdown and options to cancel or exit the program.</br></br>
+>
+> **Functionality:**
+> - **Time Setup**: Allows the user to set a shutdown time in `HH:MM:SS` format.
+> - **Live Countdown**: Displays the time remaining until shutdown in real-time.
+> - **User Interaction**: Provides options to cancel the shutdown or exit the script without canceling the scheduled task.
+> - **Immediate Shutdown**: Includes an option to shut down the system immediately.
+>
+> **Features**:
+> - Supports scheduling shutdowns for the same day or the next day.
+> - Automatically adjusts for the next-day scenario if the shutdown time is earlier than the current time.
+> - Offers an interactive interface during the countdown.
+>
+> **Example Usage**:
+> ```console
+> delayed_shutdown.cmd
+> ```
+> When run, the script prompts the user to enter the desired shutdown time or choose to shut down immediately. The remaining time is displayed in real-time.
+></br>
+
+#### `system_info.cmd`:
+></br>
+> A script that gathers and displays detailed information about the operating system, hardware, and network configuration. </br></br>
+>
+> **Functionality:**
+> - **Operating System Details**: Displays OS name and version.
+> - **Hardware Information**: Shows BIOS type, CPU name, and total physical memory.
+> - **Network Configuration**: Lists IPv4 and IPv6 addresses of active adapters.
+> - **Battery Status**: (For laptops) Displays the remaining battery charge.
+> - **Disk Information**: Shows free and total disk space for all drives.
+>
+> **Features**:
+> - Outputs system information in a clean, structured format.
+> - Automatically detects missing hardware (e.g., no battery on desktops).
+> - Portable and runs on any Windows machine without additional dependencies.
+>
+> **Example Usage**:
+> ```console
+> system_info.cmd
+> ```
+> The script outputs all system details to the console in a structured format.
+></br>
+
+</br>
+
 ### C++ Scripts
 
 #### `break_reminder.cpp`:
@@ -83,6 +142,8 @@ UtilityScripts/
 >```
 > When run, the program prompts the user to set work and break intervals or accept defaults. It notifies the user at the end of each interval with a pop-up message.
 ></br>
+
+</br>
 
 ### Python Scripts
 
@@ -185,8 +246,32 @@ UtilityScripts/
 ## Usage
 
 Each script can be run independently. 
-For Python scripts, you'll need to have Python installed on your system. For detailed usage instructions, refer to the list above and individual script files. 
-For C++ scripts, you'll need to compile scripts to binary executable compatible with your system.
+For Python scripts, you'll need to have Python installed on your system. For detailed usage instructions, refer to the list above, individual script files and [guide](#general-usage-guide-python) below.
+For C++ scripts, you'll need to compile scripts to binary executable compatible with your system. For more details refer to the [guide](#general-usage-guide-c) below.
+CMD scripts require no instalation.
+
+#### **General Usage Guide** (CMD)
+
+CMD scripts are self-contained and require no compilation or installation. Simply run the script directly by clicking it in GUI or from the terminal:
+
+**Example:**
+```console
+system_info.cmd
+```
+For interactive scripts like delayed_shutdown.cmd, follow the on-screen prompts to schedule or cancel the shutdown.
+#### **General Usage Guide** (C++)
+
+**Compilation**
+To run the `C++` utilities, compile the `*.cpp` files (if not already compiled) to executable files. For example:
+```bash
+g++ -o break_reminder break_reminder.cpp
+```
+
+**Execution**
+Then execute the resulting binary. For example:
+```console
+break_reminder.exe
+```
 
 #### **General Usage Guide** (Python)
 
@@ -244,6 +329,7 @@ alias filediff="python /path/to/UtilityScripts/Python_Scripts/file_diff/file_dif
 ## Contributing
 
 Contributions to this project are welcome! If you have improvements or bug fixes, please feel free to fork the repository and submit a pull request.
+I encourage contributors to extend the compatibility of the Windows-specific scripts to other platforms (e.g., Linux, macOS) by using cross-platform libraries for notifications.
 
 ## License
 
