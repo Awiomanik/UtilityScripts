@@ -189,11 +189,12 @@ UtilityScripts/
 >The loading bar displays progress, average time, and estimated time to completion.
 ></br>
 
-#### `folder_size_analyzer.py`:
+#### `size_of_folders.py`:
 ></br>Command-line tool. Analyzes and lists folder sizes within a specified directory, allowing for unit customization (e.g., bytes, KB, MB). Useful for disk usage analysis.<br>
 > **Functionality:**
 > - **Directory and Unit Customization**: Allows the user to specify a target directory (`-d`) and unit (`-u`) to display folder sizes, with support for units from bits to tebibytes.
 > - **Folder Size Calculation**: Recursively calculates folder sizes and presents them in descending order by size.
+> - **Files Exclusion**: Allows user to exclude files and directories from analysis based on eclusion regular expression (`-e`) or bottom element size threshold (`-t`).
 >
 > **Methods:**
 > - `get_case_insensitive_item`: Searches for a unit in a case-insensitive manner.
@@ -202,9 +203,9 @@ UtilityScripts/
 > - `list_folder_sizes`: Returns a list of folder sizes in descending order.
 >
 > **Example Usage:**
->The script calculates the sizes of all folders in a directory and lists them by size. You can specify the directory and the unit for display with the `-d` and `-u` flags:
+>The script calculates the sizes of all folders in a directory and lists them by size excluding `.log` files and those which do not exceed bottom `100 kb`. You can specify the directory and the unit for display with the `-d` and `-u` flags:
 > ```bash
-> python folder_size_analyzer.py -d /path/to/directory -u MB
+> python folder_size_analyzer.py -d /path/to/directory -u MB -e *.log -t 100
 > ```
 >Supported units: `bit`, `B`, `KB`, `MB`, `GB`, `TB`, `KiB`, `MiB`, `GiB`, `TiB`. By default, it uses the current directory and MiB.
 ></br>
